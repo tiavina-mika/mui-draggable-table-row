@@ -2,10 +2,12 @@
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
-    "@mui/material": "latest",
+    "@mui/material": "5.10.8",
     "@types/react": "latest",
+    "@types/react-beautiful-dnd": "13.1.2",
     "@types/react-dom": "latest",
     "react": "latest",
+    "react-beautiful-dnd": "13.1.1",
     "react-dom": "latest",
     "typescript": "latest"
   },
