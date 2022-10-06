@@ -29,13 +29,14 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle
 });
 
-
 const KitchenAreas = () => {
   const [kitchenAreas, setKitchenAreas] = useState([]);
-  console.table(kitchenAreas.map(k => ({
-    name: k.kitchenArea.name,
-    order: k.order
-  })))
+  console.table(
+    kitchenAreas.map((k) => ({
+      name: k.kitchenArea.name,
+      order: k.order
+    }))
+  );
 
   useEffect(() => {
     setKitchenAreas(items);
@@ -44,59 +45,70 @@ const KitchenAreas = () => {
   const onDragEnd = (result) => {
     // dropped outside the list
     if (!result.destination) {
-      return
+      return;
     }
 
     const orderedKitchenArea = reorder(
       kitchenAreas,
       result.source.index,
       result.destination.index
-    )
-    const updatedKitchenAreas = orderedKitchenArea.map((kitchenArea: any, index: number) => ({ ...kitchenArea, order: index + 1 }))
+    );
+    const updatedKitchenAreas = orderedKitchenArea.map(
+      (kitchenArea: any, index: number) => ({
+        ...kitchenArea,
+        order: index + 1
+      })
+    );
 
     setKitchenAreas(updatedKitchenAreas);
-  }
+  };
 
   return (
     <TableContainer component={Paper}>
       <DragDropContext onDragEnd={onDragEnd}>
-      <StrictModeDroppable droppableId="droppable">
-        {(provided) => (
+        <StrictModeDroppable droppableId="droppable">
+          {(provided) => (
             <Table
-            sx={{ minWidth: 650 }}
-            aria-label="simple table"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
+              sx={{ minWidth: 650 }}
+              aria-label="simple table"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
             >
               <TableHead>
                 <TableRow>
                   <TableCell component="th">Name</TableCell>
-                  <TableCell align="left" component="th">Order</TableCell>
+                  <TableCell align="left" component="th">
+                    Order
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {kitchenAreas.map((kitchenArea, index) => (
-                  <Draggable key={kitchenArea.kitchenArea.objectId} draggableId={kitchenArea.kitchenArea.objectId} index={index}> 
+                  <Draggable
+                    key={kitchenArea.kitchenArea.objectId}
+                    draggableId={kitchenArea.kitchenArea.objectId}
+                    index={index}
+                  >
                     {(provided, snapshot) => (
                       <TableRow
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                            userSelect: "none",
-                            // background: snapshot.isDragging ? "#f7f7f7" : "",
-                          }}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <TableCell component="th" scope="kitchenArea">
-                            {kitchenArea.kitchenArea.name}
-                          </TableCell>
-                          <TableCell align="left">{kitchenArea.order}</TableCell>
-                        </TableRow>
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                          userSelect: "none",
+                          background: snapshot.isDragging ? "#f7f7f7" : ""
+                        }}
+                        style={getItemStyle(
+                          snapshot.isDragging,
+                          provided.draggableProps.style
+                        )}
+                      >
+                        <TableCell component="th" scope="kitchenArea">
+                          {kitchenArea.kitchenArea.name}
+                        </TableCell>
+                        <TableCell align="left">{kitchenArea.order}</TableCell>
+                      </TableRow>
                     )}
                   </Draggable>
                 ))}
