@@ -104,9 +104,13 @@ const KitchenAreas = () => {
                         }}
                         style={{ ...provided.draggableProps.style }}
                       >
-                        <TableCell component="th" scope="kitchenArea">
+                        <TableCell component="th">
                           {kitchenArea.kitchenArea.name}
                         </TableCell>
+                        {/* add an empty cel to avoid celle shifting to the left when dragging */}
+                        {snapshot.isDragging && (
+                          <TableCell align="left" width={260} />
+                        )}
                         <TableCell align="left">{kitchenArea.order}</TableCell>
                       </TableRow>
                     )}
