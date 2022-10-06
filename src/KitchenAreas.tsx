@@ -9,6 +9,7 @@ import { kitchenAreas as items } from "./data";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import StrictModeDroppable from "./StrictModeDroppable";
+import { blue } from "@mui/material/colors";
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -29,8 +30,17 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle
 });
 
+const sx = {
+  tableCell: {
+    backgroundColor: blue[500],
+    color: "#fff"
+  }
+};
+
 const KitchenAreas = () => {
   const [kitchenAreas, setKitchenAreas] = useState([]);
+
+  // log datas
   console.table(
     kitchenAreas.map((k) => ({
       name: k.kitchenArea.name,
@@ -53,6 +63,8 @@ const KitchenAreas = () => {
       result.source.index,
       result.destination.index
     );
+
+    // update the kitchen area order depending on the drag and drop order
     const updatedKitchenAreas = orderedKitchenArea.map(
       (kitchenArea: any, index: number) => ({
         ...kitchenArea,
@@ -76,8 +88,10 @@ const KitchenAreas = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell component="th">Name</TableCell>
-                  <TableCell align="left" component="th">
+                  <TableCell sx={sx.tableCell} component="th">
+                    Name
+                  </TableCell>
+                  <TableCell sx={sx.tableCell} align="left" component="th">
                     Order
                   </TableCell>
                 </TableRow>
