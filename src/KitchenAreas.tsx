@@ -19,17 +19,6 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-
-  // change background colour if dragging
-  background: isDragging ? "#f7f7f7" : "",
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
-
 const sx = {
   tableCell: {
     backgroundColor: blue[500],
@@ -113,10 +102,7 @@ const KitchenAreas = () => {
                           userSelect: "none",
                           background: snapshot.isDragging ? "#f7f7f7" : ""
                         }}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
+                        style={{ ...provided.draggableProps.style }}
                       >
                         <TableCell component="th" scope="kitchenArea">
                           {kitchenArea.kitchenArea.name}
